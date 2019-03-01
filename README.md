@@ -11,9 +11,8 @@ groupD = Group(["Bunny","TY","uThermal","Scarlett","soO","Dear"],3)
 
 2. Add all matches that have already been played
 e.g.
-groupD.addResult("TY","uThermal",(2,1))
-
-3. Call getChances(group,condition=None,show=False)
+```groupD.addResult("TY","uThermal",(2,1)) ```
+3. Call ```getChances(group,condition=None,show=False) ```
 e.g.
 getChances(groupD,selector,True)
 -> Prints out all scenarios where the condition specified in "selector" is met
@@ -53,8 +52,8 @@ This can also easily be modified to check various other solutions.
 
 --------------------------------------------------------
 The program assumes standard tournament brackets, meaning:
-Every player plays each other player once
-All matches are of the same best-of-x, every best-of-x is odd (so no best-of-2) and a tie is not possible (like a 1.5 : 1.5 tie in chess)
+* Every player plays each other player once
+* All matches are of the same best-of-x, every best-of-x is odd (so no best-of-2) and a tie is not possible (like a 1.5 : 1.5 tie in chess)
 
 Group ranking and tie breakers are in the following order:
 
