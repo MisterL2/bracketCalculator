@@ -1,4 +1,4 @@
-# bracketCalculator
+# Bracket Calculator
 Calculates all possible results of any RR group stage
 
 Usage:
@@ -10,11 +10,13 @@ For example (IEM Katowice Group D, Best of 3):
 ```groupD = Group(["Bunny","TY","uThermal","Scarlett","soO","Dear"],3)```
 
 2. Add all matches that have already been played
+
 e.g.
 ```groupD.addResult("TY","uThermal",(2,1)) ```
 3. Call ```getChances(group,condition=None,show=False) ```
+
 e.g.
-getChances(groupD,selector,True)
+```getChances(groupD,selector,True) ```
 -> Prints out all scenarios where the condition specified in "selector" is met
 
 Alternatively, call it without a condition
