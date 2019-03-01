@@ -13,7 +13,7 @@ class Group:
     def addResult(self,playerName,otherPlayerName,resultTuple):
         for match in self.matches:
             if playerName in {match[0].name,match[1].name} and otherPlayerName in {match[0].name,match[1].name}:
-                match[2]=3 # isPlayed
+                match[2]=True # isPlayed
                 player = self.findPlayer(playerName)
                 otherPlayer = self.findPlayer(otherPlayerName)
                 self.futureResults.add(playerName + " " + str(resultTuple[0]) + "-" + str(resultTuple[1]) + " " + otherPlayerName)
