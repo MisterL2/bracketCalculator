@@ -1,20 +1,20 @@
 # Bracket Calculator
 Calculates all possible results of any RR group stage
 
-Usage:
+### Usage:
 
-### 1. Initialise the group, with a list of players and the best-of-X of the group matches
+##### 1. Initialise the group, with a list of players and the best-of-X of the group matches
 
 For example (IEM Katowice Group D, Best of 3): 
 
 ```groupD = Group(["Bunny","TY","uThermal","Scarlett","soO","Dear"],3)```
 
-### 2. Add all matches that have already been played
+##### 2. Add all matches that have already been played
 
 e.g.
 ```groupD.addResult("TY","uThermal",(2,1)) ```
 
-### 3. Call ```getChances(group,condition=None,show=False) ```
+##### 3. Call ```getChances(group,condition=None,show=False) ```
 
 e.g.
 ```getChances(groupD,selector,True) ```
@@ -27,7 +27,8 @@ Alternatively, call it without a condition
 In this case, the probability will always be 100% (obviously). If you, for some reason, want to NOT have the probability displayed at the end of the results list, call ``` generateAllPossibilities(group,condition=None,show=False) ```
 
 ------------------------------------------------
-About the selector function, which is passed as parameter to ```getChances() ``` or ```generateAllPossibilities(): ```
+### The Selector function
+This is the function that is passed as parameter to ```getChances() ``` or ```generateAllPossibilities(): ```
 
 It takes a list of players (ordered from first to last place) as parameter and must return a boolean that indicates whether the list matches the condition or not.
 
@@ -54,6 +55,7 @@ This can also easily be modified to check various other solutions.
 
 
 --------------------------------------------------------
+### Functional assumptions
 The program assumes standard tournament brackets, meaning:
 * Every player plays each other player once
 * All matches are of the same best-of-x, every best-of-x is odd (so no best-of-2) and a tie is not possible (like a 1.5 : 1.5 tie in chess)
