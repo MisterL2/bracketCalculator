@@ -75,7 +75,6 @@ class Player:
         for match in self.matches: 
             if match[0] == otherPlayerName:
                 return #Don't override already existing results
-                #break
         
         self.matches.append([otherPlayerName,resultTuple])
 
