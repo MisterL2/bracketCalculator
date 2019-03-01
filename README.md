@@ -53,12 +53,14 @@ This can also easily be modified to check various other solutions.
 
 --------------------------------------------------------
 The program assumes standard tournament brackets, meaning:
--Every player plays each other player once
--All matches are of the same best-of-x, every best-of-x is odd (so no best-of-2) and a tie is not possible (like a 1.5 : 1.5 tie in chess)
--Matches are ordered by Match Win-Loss
-Tie breakers are in the following order:
-1. Map Win-Loss
-2. Map Wins
-3. Head to Head
+Every player plays each other player once
+All matches are of the same best-of-x, every best-of-x is odd (so no best-of-2) and a tie is not possible (like a 1.5 : 1.5 tie in chess)
+
+Group ranking and tie breakers are in the following order:
+
+1. Match Win-Loss
+2. Map Win-Loss
+3. Map Wins
+4. Head to Head
 
 If Match Win-Loss and tiebreaks 1 & 2 are tied, and 3. cannot be resolved, the order between the participants is arbitary.
