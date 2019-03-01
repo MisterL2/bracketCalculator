@@ -7,7 +7,7 @@ Usage:
 
 For example (IEM Katowice Group D, Best of 3): 
 
-groupD = Group(["Bunny","TY","uThermal","Scarlett","soO","Dear"],3)
+```groupD = Group(["Bunny","TY","uThermal","Scarlett","soO","Dear"],3)```
 
 2. Add all matches that have already been played
 e.g.
@@ -19,33 +19,33 @@ getChances(groupD,selector,True)
 
 Alternatively, call it without a condition
 
-getChances(groupD,show=True)
+```getChances(groupD,show=True) ```
 
-In this case, the probability will always be 100% (obviously). If you, for some reason, want to NOT have the probability displayed at the end of the results list, call generateAllPossibilities(group,condition=None,show=False)
+In this case, the probability will always be 100% (obviously). If you, for some reason, want to NOT have the probability displayed at the end of the results list, call ``` generateAllPossibilities(group,condition=None,show=False) ```
 
 ------------------------------------------------
-About the selector function, which is passed as parameter to getChances() or generateAllPossibilities():
+About the selector function, which is passed as parameter to ```getChances() ``` or ```generateAllPossibilities(): ```
 
 It takes a list of players (ordered from first to last place) as parameter and must return a boolean that indicates whether the list matches the condition or not.
 
 For example:
-
+```python
 def selector(sortedPlayers):
     for i in range(len(sortedPlayers)):
         if sortedPlayers[i].name == "soO":
             return i==1
-
+```
 With this selector, all results are returned where soO is second place in his group (index 1 -> 2nd place, index 0 -> 1st place).
 This can be easily modified to i<=2 to check if he achieved top 3, etc.
 
-
+```python
 def selector(sortedPlayers):
     a = 0
     for i in range(3):
         if sortedPlayers[i].name in {"TY","uThermal","Bunny"}:
             a+=1        
     return a==2
-    
+```
 This returns all results, where exactly 2 players out of "TY" "uThermal" and "Bunny" are in the top 3.
 This can also easily be modified to check various other solutions.
 
