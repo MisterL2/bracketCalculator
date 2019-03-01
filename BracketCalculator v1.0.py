@@ -87,7 +87,9 @@ def generateMatches(playerList):
     matches = []
     for player in playerList:
         for otherPlayer in playerList:
-            if player.name > otherPlayer.name: #String alphabetic comparison; ensures that matches only occur once. Also excludes matches against the player themselves
+            #String alphabetic comparison; ensures that matches only occur once.
+            #Also excludes matches against the player themselves
+            if player.name > otherPlayer.name: 
                 matches.append([player,otherPlayer,False])
     return matches
 
@@ -140,7 +142,6 @@ def generateAllPossibilities(group,condition=None,show=False):
 def resetToInitial(group,initialState,alreadyPlayed,TBD):
     for i in range(len(group.players)): #List maintains order
         group.players[i].matches=initialState[i].copy()
-    #m = alreadyPlayed.copy() + TBD.copy() # THIS CAUSES REALLY!!!!!!!!!!!!!!!!!!!!!!!!!!! BAD MUTATION PROBLEMS THAT YOU WILL NEVER FIND (SHALLOW COPY ISSUES, SUBLISTS MUTATE WHILE MAINLIST IS COPIED)
     for match in group.matches:
         if match in TBD:
             match[2]=False
