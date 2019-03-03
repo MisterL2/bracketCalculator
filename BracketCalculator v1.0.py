@@ -148,20 +148,15 @@ def resetToInitial(group,initialState,alreadyPlayed,TBD):
 
 
 def calculateH2H(sortedPlayers):
-    for i in range(len(sortedPlayers)):
-            for j in range(len(sortedPlayers)):
-                if i != j and scoreToNumber(sortedPlayers[i]) == scoreToNumber(sortedPlayers[j]):
-                    for match in sortedPlayers[i].matches:
-                        if match[0]==sortedPlayers[j].name:                            
-                            if match[1][0] > match[1][1]:
-                                #Higher up = lower index
-                                if i > j:
-                                    sortedPlayers[i], sortedPlayers[j] = sortedPlayers[j], sortedPlayers[i]
-                            else:
-                                #Higher up = lower index
-                                if i < j:
-                                    sortedPlayers[i], sortedPlayers[j] = sortedPlayers[j], sortedPlayers[i]
-                            return
+    for i, player1 in enumerate(sortedPlayers):
+        for j, player2 in enumerate(sortedPlayers):
+            if i == j or scoreToNumber(player1) != scoreToNumber(player2):
+                continue
+            for match in player1.matches:
+                if match[0] == player2.name:
+                    if match[1][0] > match[1][1] and i > j or match[1][0] < match[1][1] and i < j:
+                        sortedPlayers[i], sortedPlayers[j] = player2, player1
+                    return
 
 
 
