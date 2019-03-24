@@ -93,6 +93,7 @@ Possible values to evaluate by:
 ##### ```p.name```
 
 The option ```p.getMapScore()``` is only syntactic sugar for ```p.mapWins - p.mapLoss```. Please remember the ().
+
 Note that even though the field ```p.h2h``` exists, ordering by it will not work (as it is not calculated at that point!). If you want to order by H2H, you can do this by setting ```priorities = []```
 
 --------------------------------------------------------
