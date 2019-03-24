@@ -1,6 +1,8 @@
 #Bracket calculator algorithm (c) MisterL2 01.03.2019
 from itertools import product
 
+priorities = [lambda player : player.matchWins,lambda player : player.getMapScore(),lambda player : player.mapWins]
+
 class Group:
 
     def __init__(self,playerList,bestOf): #Assumes Match Win-Loss > MapDifference > MapWins > Head to Head
@@ -27,10 +29,7 @@ class Group:
                 return player
             
     def displayBracket(self,condition=None,show=False):
-        sortedPlayers = sorted(self.players,key=scoreToNumber,reverse=True)
-
-        calculateH2H(sortedPlayers) #No output, mutates sortedPlayers. Also calculates the scores of all players
-                            
+        sortedPlayers = sorted(self.players,key=lambda p : scoreToNumber(p,self.players),reverse=True)
                     
         if condition is not None:
             if not condition(sortedPlayers):
@@ -38,7 +37,7 @@ class Group:
         if show:
             print("=========================================")
             for player in sortedPlayers:
-                print("{:^10}:  ({}-{}) ({}-{}) {}".format(player.name,player.matchWins,player.matchLoss,player.mapWins,player.mapLoss,player.getMapScore()))
+                print("{:^10}:  ({}-{}) ({}-{})  {}   {}".format(player.name,player.matchWins,player.matchLoss,player.mapWins,player.mapLoss,player.getMapScore(),f"H2H: {player.h2h}" if player.isTied else ""))
             for item in self.futureResults:
                 print(item)
             print("=========================================")
@@ -56,9 +55,11 @@ class Player:
         self.matchLoss = 0
         self.mapWins = 0
         self.mapLoss = 0
+        self.h2h = 0
+        self.isTied = 0 #becomes True 
 
     def calculateScores(self):
-        self.matchWins=self.matchLoss=self.mapWins=self.mapLoss=0 #Very necessary reset
+        self.matchWins=self.matchLoss=self.mapWins=self.mapLoss=0 #Very necessary reset. DO NOT reset H2H or isTied here!
         if not self.matches:
             pass
         else:
@@ -103,11 +104,20 @@ def generateResults(bestOf):
     return possibilities
 
 
-def scoreToNumber(player): #H2H is managed seperately
+def scoreToNumber(player,allPlayers=None): #H2H is managed seperately
     player.calculateScores()
-    return player.matchWins*1000 + player.getMapScore()*20 + player.mapWins
+    if allPlayers is not None:
+        calculateH2H(allPlayers) #No output, calculates h2h scores for all tied participants
+        return calculatePriorities(player) + (player.h2h,) #The "," is cast to tuple
+    return calculatePriorities(player)
 
-
+def calculatePriorities(player):
+    global priorities
+    resultTuple = ()
+    for item in priorities:
+        resultTuple += (item(player),) #The "," is cast to tuple
+    return resultTuple
+    
 
 def generateAllPossibilities(group,condition=None,show=False):
     #Recording initial state
@@ -142,27 +152,29 @@ def resetToInitial(group,initialState,alreadyPlayed,TBD):
     for i in range(len(group.players)): #List maintains order
         group.players[i].matches=initialState[i].copy()
     for match in group.matches:
-        if match in TBD:
-            match[2]=False
+        for otherMatch in TBD:
+            if match[0] == otherMatch[0] and match[1] == otherMatch[1]: #Same matchup. Using "match in TBD" doesn't work, because the boolean will be True for the match in group.matches, but False for the one in TBD
+                match[2]=False
     group.futureResults = set()
 
 
-def calculateH2H(sortedPlayers):
-    for i, player1 in enumerate(sortedPlayers):
-        for j, player2 in enumerate(sortedPlayers):
-            if i == j or scoreToNumber(player1) != scoreToNumber(player2):
+def calculateH2H(players):
+    for player in players:
+        player.h2h=0 #Important reset BEFORE subsequent calculations
+        player.isTied=0
+        
+    for player1 in players:
+        for player2 in players:
+            if player1 is player2 or scoreToNumber(player1) != scoreToNumber(player2):
                 continue
             for match in player1.matches:
                 if match[0] == player2.name:
-                    if match[1][0] > match[1][1] and i > j or match[1][0] < match[1][1] and i < j:
-                        sortedPlayers[i], sortedPlayers[j] = player2, player1
-                    return
-
+                    if match[1][0] > match[1][1]:
+                        player1.h2h += 1
+                    player1.isTied=player2.isTied=True
+                    break
 
 
 def getChances(group,condition=None,show=False):
     a, b =generateAllPossibilities(group,condition,show)
     print (str(a*100/b) + "%")
-
-    
-
