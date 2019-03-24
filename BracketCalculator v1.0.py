@@ -1,7 +1,7 @@
 #Bracket calculator algorithm (c) MisterL2 01.03.2019
 from itertools import product
 
-priorities = [lambda player : player.matchWins,lambda player : player.getMapScore(),lambda player : player.mapWins]
+priorities = [lambda p : p.matchWins, lambda p : p.getMapScore(), lambda p : p.mapWins]
 
 class Group:
 
@@ -178,3 +178,17 @@ def calculateH2H(players):
 def getChances(group,condition=None,show=False):
     a, b =generateAllPossibilities(group,condition,show)
     print (str(a*100/b) + "%")
+
+''' #Example data
+group = Group(["a","b","c","d","e"],3)
+group.addResult("a","b",(2,1))
+group.addResult("a","c",(2,0))
+group.addResult("b","c",(1,2))
+group.addResult("d","c",(1,2))
+group.addResult("b","d",(2,0))
+group.addResult("a","d",(2,0))
+group.addResult("a","e",(2,0))
+group.addResult("d","e",(2,0))
+group.addResult("b","e",(2,0))
+group.addResult("c","e",(2,1))
+'''
