@@ -28,7 +28,7 @@ In this case, the probability will always be 100% (obviously). If you, for some 
 
 ------------------------------------------------
 ### The Selector function
-This is the function that is passed as parameter to ```getChances() ``` or ```generateAllPossibilities(): ```
+This is the function that is passed as parameter to ```getChances()``` or ```generateAllPossibilities(): ```
 
 It takes a list of players (ordered from first to last place) as parameter and must return a boolean that indicates whether the list matches the condition or not.
 
