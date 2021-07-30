@@ -102,4 +102,4 @@ The program assumes standard tournament brackets, meaning:
 * Every player plays each other player once
 * All matches are of the same best-of-x, every best-of-x is odd (so no best-of-2) and a tie is not possible (like a 1.5 : 1.5 tie in chess)
 
-If all components of the Evaluation Order are tied, Head-To-Head is evaluted. If Head-To-Head scores are equal (extremely unlikely, only possible in 4-way ties or bigger) then the tied participants are listed in alphabetical order. If participants are also named the same, the universe ends and we all die.
+If all components of the Evaluation Order are tied, Head-To-Head is evaluted. If Head-To-Head scores are equal (extremely unlikely, only possible in 3-way ties or bigger) then the tied participants are listed in alphabetical order. If participants are also named the same, the universe ends and we all die.
